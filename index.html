@@ -3,6 +3,12 @@
   <head>
     <meta charset='utf-8'>
     <title>Node.js LUG Presentation</title>
+    <style>
+      .bg-black {
+        padding: 1rem;
+        background: black;
+      }
+    </style>
   </head>
   <body>
     <textarea id='source' style='display:none'>
@@ -11,25 +17,226 @@
 
       # Javascript: Down the Rabbit Hole
 
-      Presented by Allen Zheng ([@strburst](https://github.com/strburst/)) to the [Linux Users Group at Georgia Tech](https://lugatgt.org)
+      Presented by Allen Zheng to the [Linux Users Group at Georgia Tech](https://lugatgt.org)
 
       2017-02-22
 
+      ---
+
+      # Meta
+
+      - Your presenter: Allen Zheng ([@strburst](https://github.com/strburst/))
+      - License: CC-BY-SA
+      - Presentation framework: [remark.js](https://remarkjs.com/)
+      - Presentation url: https://strburst.github.io/nodejs-lug-slides/
+
       ???
-      Introduce who I am
-      Feel free to interrupt
+
+      Who here is comfortable with Javascript?
 
       ---
 
-      # Agenda
+      # Javascript crash courses
 
-      - History of Javascript
-      - Javascript crash course
-      - Why Node.js?
+      - https://learnxinyminutes.com/docs/javascript/
+      - http://gnab.github.io/js-workshop/
+      - Javascript: The Good Parts
+
+      ???
+
+      Not going to be a comprehensive language tutorial
+      I will cover more interesting stuff instead
+      Exercise in programming language linguistics
+
+      Feel free to interject at any time for clarifications
+
+      ---
+      name: why-title
+
+      # Why?
+
+      --
+      name: why-everywhere
+
+      - Javascript is everywhere
+
+      ???
+
+      Why you should care about Javascript
+
+      ---
+      template: why-everywhere
+        - In the browser
+
+      ```
+      alert('hi');
+      ```
+
+      ---
+      template: why-everywhere
+        - On the server
+
+      .center.bg-black[![node.js logo](https://nodejs.org/static/images/logo.svg)]
+
+      ---
+      name: why-everywhere-desktop
+      template: why-everywhere
+        - In desktop apps (!)
+
+      --
+
+      .center[[<img src="https://i.imgur.com/7cR3ogn.png" width="65%">](http://electron.atom.io/)]
+
+      ---
+      template: why-everywhere-desktop
+
+      .center[[<img src="https://github-atom-io-herokuapp-com.global.ssl.fastly.net/assets/screenshot-main-80d8c9841da6ed11c9d87f31136a4ca9.png" width="65%">](http://atom.io/)]
+
+
+      ---
+      template: why-everywhere
+
+      - Extremely popular programming language by most [metrics](http://githut.info/)
 
       ---
 
       # History
+
+      - Created for Netscape Navigator in 1995
+      - First prototype created in 10 days by Brendan Eich
+      - Javascript standardization suffered a lot during the browser wars
+      - Finally, came ECMAScript Harmony in 2008
+
+      ???
+
+      Brendan Eich originally hired to implement scheme, but then they decided it needed to complement be familiar to Java programmers
+      Mocha -> LiveScript -> JavaScript
+      Candidates: Python, Scheme
+
+      ---
+
+      # Brendan Eich: "Sorry"
+
+      > I talk a lot about being in a hurry, which was very true; I didn't sleep much. I did the prototype for Javascript in ten days. But really, I'd already read SICP and I'd studied Scheme, and I have no good excuse for some of these things.
+
+      -- Brendan Eich, [2010](https://youtu.be/1EyRscXrehw?t=5m8s)
+
+      ---
+
+      # Prototypal inheritance
+
+      ---
+
+      # Concurrency
+
+      ---
+      name: wat-title
+
+      # Wat
+
+      --
+
+      Brief talk about weirdness in Javascript: https://www.destroyallsoftware.com/talks/wat
+
+      ---
+      template: wat-title
+
+      <!-- <img class="center" src="http://i.imgur.com/wR3ZxfB.jpg" width="50%"> -->
+      .center[<img src="http://www.shlomifish.org/open-source/anti/javascript/javascript-the-good-parts-the-definitive-guide.jpg" width="50%">]
+
+      ???
+
+      ```
+      undefined = 2
+      'use strict'
+      [] + []
+      [] + {}
+      ```
+
+      ---
+      name: jsf-title
+      template: wat-title
+
+      - [JSFuck](https://github.com/aemkei/jsfuck)
+        - "Write any Javascript with 6 characters: `[]()!+`"
+
+      --
+
+      ```
+      // equivalent to `alert(1)`
+      [][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[
+      ]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]
+      ])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+
+      (!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+
+      !+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![
+      ]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]
+      +[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[
+      +!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!!
+      []+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![
+      ]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[
+      ]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[])[+!+[]]+(![
+      ]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(!
+      []+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])
+      [+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(
+      !![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[
+      ])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()
+      ```
+
+      ---
+      template: jsf-title
+
+      - Try it yourself: http://www.jsfuck.com/
+        - Express `['a', 'b', 'c'].forEach((e) => alert(e))` in 59897 characters!
+
+      ---
+      name: fun-title
+
+      # Fun facts
+
+      - ["Semicolons in Javascript are optional"](http://mislav.net/2010/05/semicolons/)
+        - "automatic semicolon insertion"
+
+      --
+
+      ```
+      function f() {
+        return // ;
+        {
+          an: 'object',
+        }
+      }
+
+      function g() {
+        return // ;
+          a + b
+      }
+      ```
+
+      ---
+      template: fun-title
+
+      ```
+      // lines that begin with '('...
+      a = b + c
+      (d + e).prop()
+
+      // ...will be joined with the previous line
+      a = b + c(d + e).prop();
+      ```
+
+      ???
+      Semicolons are not required despite C-like syntax
+      There are a few gotchas to be aware of
+      Strictly speaking, this makes Javascript whitepsace sensetive
+
+      Not widely used because Douglass Crockford said so
+
+      ---
+
+      # Questions?
+
+      ???
+      Thanks for coming!
 
     </textarea>
 
@@ -37,6 +244,9 @@
     <script>
       const slideshow = remark.create({
         ratio: '16:9',
+
+        highlightLanguage: 'javascript',
+        highlightLines: true,
       });
     </script>
   </body>
