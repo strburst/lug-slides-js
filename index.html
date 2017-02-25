@@ -189,17 +189,37 @@
       ```
 
       ---
+      name: proto-title
 
       # Prototypal inheritance
 
+      --
+
       ```
-      function Animal(name) {
-        this.corporeal = true;
+      // Hackish way (not all implementations)
+      var proto = { a: 'hello', b: 'world' }
+      var o = { a: 'hi' }
+      o.__proto__ = proto
+
+      o.a; // 'hi'
+      o.b; // 'world'
+      ```
+
+      ---
+      template: proto-title
+
+      ```
+      function Animal(name) { // Can set properties in constructor
         this.name = name;
       }
 
-      Animal.prototype.makeNoise = function() {
-        return '...';
+      // Or add to prototype directly
+      Animal.prototype = {
+        corporeal: true,
+
+        makeNoise: function() {
+          return '...';
+        },
       };
       ```
 
@@ -210,6 +230,7 @@
         Animal.call(this, name);
       }
 
+      Dog.prototype = new Animal(); // Set up the prototype chain
       Dog.prototype.makeNoise = function() {
         return 'Bork!';
       };
@@ -222,6 +243,7 @@
       By convention, constructors are capitalized, however, there's nothing special about this
       When 'new' is used, 'this' will be bound to a new object
       Call exists on all functions
+      What if we defined the method in the constructor?
       ---
 
       # Prototypal inheritance
@@ -232,6 +254,9 @@
       var doggo = new Dog('Gabe');
       doggo.corporeal; // true
       doggo.makeNoise(); // 'Bork!'
+
+      doggo.__proto__ === Dog.prototype; // true
+      doggo.__proto__.__proto__ === Animal.prototype; // true
       ```
 
       ---
