@@ -41,25 +41,8 @@
 
       ???
 
+      I'm your presenter; it's my first time presenting to the LUG
       Who here is comfortable with Javascript?
-
-      ---
-
-      # Javascript crash courses
-
-      - https://learnxinyminutes.com/docs/javascript/
-
-      - http://gnab.github.io/js-workshop/
-
-      - Javascript: The Good Parts
-
-      ???
-
-      Not going to be a comprehensive language tutorial
-      I will cover more interesting stuff instead
-      Exercise in programming language linguistics
-
-      Feel free to interject at any time for clarifications
 
       ---
       name: why-title
@@ -85,11 +68,14 @@
       template: why-everywhere
         - On the server
 
-      [.center.bg-black[![node.js logo](https://nodejs.org/static/images/logo.svg)]](https://nodejs.org)
+      [.center.bg-black[<img src="https://nodejs.org/static/images/logo.svg" alt="Node.js logo" width="50%">]](https://nodejs.org)
 
       ???
 
-      I was going to talk about node.js too, but the scope got too big
+      Originally going to talk about *just* node.js, then js + node.js, then just js
+      Maybe a future talk
+
+      So much optimization work was done in V8 that JS is really fast
 
       ---
       name: why-everywhere-desktop
@@ -134,6 +120,8 @@
       Mocha -> LiveScript -> JavaScript
       Candidates: Python, Scheme
 
+      ECMAScript is just a name for standardized Javascript
+
       ---
 
       # Brendan Eich: "Sorry"
@@ -144,7 +132,107 @@
 
       ---
 
+      # Javascript crash courses
+
+      - https://learnxinyminutes.com/docs/javascript/
+
+      - http://gnab.github.io/js-workshop/
+
+      - Javascript: The Good Parts
+
+      ???
+
+      Not going to be a comprehensive language tutorial
+      Will cover the bare minimum to understand things
+      I will cover more interesting stuff instead
+      Exercise in programming language linguistics
+
+      Feel free to interject at any time for clarifications
+
+      ---
+
+      # Objects
+
+      ```
+      var presentation = {
+        date: Date.now(),
+        topic: 'Javascript',
+        'delete me': 'hello', // keys are arbitrary strings
+        hello: function() { // methods are just properties assigned to functions
+          return 'Hello, world!';
+        },
+        presenter: 'Allen', // trailing commas are allowed
+      };
+      ```
+
+      ???
+      Really easy to make objects (one of the good parts)
+      Objects are basically just key-value pairs
+
+      --
+
+      ```
+      // . and [] notation are equivalent for literals without special characters
+      presentation.organization = 'LUG@GT';
+      presentation['organization'] = 'LUG@GT';
+
+      // key can be a variable
+      var key = 'topic';
+      presentation[key]; // 'Javascript'
+      ```
+
+      --
+
+      ```
+      del presentation['delete me'];
+      presentation['delete me']; // undefined
+      ```
+
+      ---
+
       # Prototypal inheritance
+
+      ```
+      function Animal(name) {
+        this.corporeal = true;
+        this.name = name;
+      }
+
+      Animal.prototype.makeNoise = function() {
+        return '...';
+      };
+      ```
+
+      --
+
+      ```
+      function Dog(name) {
+        Animal.call(this, name);
+      }
+
+      Dog.prototype.makeNoise = function() {
+        return 'Bork!';
+      };
+      ```
+
+      ???
+      Objects without classes
+      If you want to create an object from a template, you can use another object
+
+      By convention, constructors are capitalized, however, there's nothing special about this
+      When 'new' is used, 'this' will be bound to a new object
+      Call exists on all functions
+      ---
+
+      # Prototypal inheritance
+
+      Typical Dog inherits from Animal relationship
+
+      ```
+      var doggo = new Dog('Gabe');
+      doggo.corporeal; // true
+      doggo.makeNoise(); // 'Bork!'
+      ```
 
       ---
 
@@ -152,7 +240,7 @@
 
       ---
 
-      # ES6
+      # ES6/ES2015
 
       ---
       name: wat-title
