@@ -18,6 +18,10 @@
         margin: 0 0 0.5em 0;
       }
 
+      img {
+        max-width: 100%;
+      }
+
       .bg-black {
         padding: 1rem;
         background: black;
@@ -77,7 +81,7 @@
       template: why-everywhere
         - In the browser
 
-      .center[<img src="https://i.imgur.com/Aym0atz.png" width="80%">]
+      .center[![Browser logos](https://i.imgur.com/Aym0atz.png)]
 
       ---
       template: why-everywhere
@@ -97,13 +101,13 @@
       template: why-everywhere
         - In desktop apps (!)
 
-      .center[[<img src="https://i.imgur.com/7cR3ogn.png" width="65%">](http://electron.atom.io/)]
+      .center[[<img src="https://i.imgur.com/7cR3ogn.png" width="80%">](http://electron.atom.io/)]
 
       ---
       template: why-everywhere
         - In desktop apps (!)
 
-      .center[[<img src="https://i.imgur.com/CRbsubr.png" width="65%">](http://atom.io/)]
+      .center[[![Atom screenshot](https://i.imgur.com/CRbsubr.png)](http://atom.io/)]
 
 
       ---
@@ -143,7 +147,7 @@
 
       ---
 
-      # Javascript crash courses
+      # Crash courses
 
       - https://learnxinyminutes.com/docs/javascript/
       - http://gnab.github.io/js-workshop/
@@ -283,7 +287,7 @@
 
       --
 
-      Brief talk about weirdness in Javascript: https://www.destroyallsoftware.com/talks/wat
+      Brief related talk: https://www.destroyallsoftware.com/talks/wat
 
       --
 
@@ -297,7 +301,7 @@
       ---
       template: wat-title
 
-      .center[<img src="https://i.imgur.com/wR3ZxfB.jpg" width="75%">]
+      .center[![Javascript: The Good Parts is much thinner than Javascript: The Definitive Guide](https://i.imgur.com/wR3ZxfB.jpg)]
 
       ???
 
@@ -398,8 +402,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js'></script>
     <script>
       const slideshow = remark.create({
-        ratio: '16:9',
-
         highlightLanguage: 'javascript',
         highlightLines: true,
       });
