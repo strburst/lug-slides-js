@@ -125,6 +125,7 @@
 
       --
       - Javascript standardization suffered a lot during the browser wars
+        - E.g. failed ES4 standard
 
       --
       - Finally, came ECMAScript Harmony in 2008
@@ -218,6 +219,13 @@
       o.b; // 'world'
       ```
 
+      --
+
+      ```
+      proto.b = 'everyone'
+      o.b; // 'everyone'
+      ```
+
       ---
       template: proto-title
 
@@ -276,9 +284,44 @@
 
       # Concurrency
 
+      - Asynchronous, nonblocking, i.e. *single-threaded*
+        - JS was made for the browser
+        - Executing Javascript is somewhere in the event loop
+
+      --
+        - If Javascript stops, your app stops too!
+            - Everything that can block is made asynchronous
+      --
+      - No need to think about preemption/interleaving
+        - If something happens, it has to wait in a queue
+
+      ???
+      event driven
+      setTimeout
+      Promises
+      weather API example
+
+      ---
+
+      # Callbacks
+
+      ```
+      setTimeout(function() {
+        alert('hi!');
+      }, 1000);
+      ```
+
+      ---
+
+      # Promises
+
       ---
 
       # ES6/ES2015
+
+      ---
+
+      # Transpilation
 
       ---
       name: wat-title
@@ -308,6 +351,7 @@
       ```
       undefined = 2
       'use strict'
+      [] // has no bounds checking
       [] + []
       [] + {}
       typeof null
