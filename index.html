@@ -4,9 +4,28 @@
     <meta charset='utf-8'>
     <title>Javascript LUG Presentation</title>
     <style>
+      blockquote {
+        margin: 0;
+        border-left: 0.5em solid gray;
+        padding-left: 1em;
+      }
+
+      body {
+        line-height: 2;
+      }
+
+      h1, h2, h3 {
+        margin: 0 0 0.5em 0;
+      }
+
       .bg-black {
         padding: 1rem;
         background: black;
+      }
+
+      .remark-code {
+        line-height: 1.2;
+        font-size: 0.8em;
       }
     </style>
   </head>
@@ -28,15 +47,12 @@
       - Your presenter: Allen Zheng ([@strburst](https://github.com/strburst/))
 
       --
-
       - License: CC-BY-SA
 
       --
-
       - Presentation framework: [remark.js](https://remarkjs.com/)
 
       --
-
       - Presentation url: https://strburst.github.io/nodejs-lug-slides/
 
       ???
@@ -53,7 +69,6 @@
       name: why-everywhere
 
       - Javascript is everywhere
-
       ???
 
       Why you should care about Javascript
@@ -93,7 +108,6 @@
 
       ---
       template: why-everywhere
-
       - Extremely popular programming language by most [metrics](http://githut.info/)
 
       ---
@@ -103,15 +117,12 @@
       - Created for Netscape Navigator in 1995
 
       --
-
       - First prototype created in 10 days by Brendan Eich
 
       --
-
       - Javascript standardization suffered a lot during the browser wars
 
       --
-
       - Finally, came ECMAScript Harmony in 2008
 
       ???
@@ -135,9 +146,7 @@
       # Javascript crash courses
 
       - https://learnxinyminutes.com/docs/javascript/
-
       - http://gnab.github.io/js-workshop/
-
       - Javascript: The Good Parts
 
       ???
@@ -306,11 +315,11 @@
 
       - [JSFuck](https://github.com/aemkei/jsfuck)
         - "Write any Javascript with 6 characters: `[]()!+`"
-
       --
 
+
       ```
-      // equivalent to `alert(1)`
+      // Equivalent to 'alert(1)'
       [][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[
       ]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]
       ])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+
@@ -331,7 +340,6 @@
 
       ---
       template: jsf-title
-
       - Try it yourself: http://www.jsfuck.com/
         - Express `['a', 'b', 'c'].forEach((e) => alert(e))` in 59897 characters!
 
