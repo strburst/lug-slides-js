@@ -77,6 +77,7 @@
       ???
 
       I'm your presenter; it's my first time presenting to the LUG
+
       Who here is comfortable with Javascript?
 
       ---
@@ -107,6 +108,7 @@
       ???
 
       Originally going to talk about *just* node.js, then js + node.js, then just js
+
       Maybe a future talk
 
       So much optimization work was done in V8 that JS is really fast
@@ -135,23 +137,29 @@
 
       - Created for Netscape Navigator in 1995
 
+      ???
+      Realized just server-side scripting is not enough
+
+      We need a "glue" language
+
       --
       - First prototype created in 10 days by Brendan Eich
+
+      ???
+      Brendan Eich originally hired to implement scheme, but then they decided it needed to complement be familiar to Java programmers
+
+      Mocha -> LiveScript -> JavaScript
 
       --
       - Javascript standardization suffered a lot during the browser wars
         - E.g. failed ES4 standard
 
-      --
-      - Finally, came ECMAScript Harmony in 2008
-
       ???
-
-      Brendan Eich originally hired to implement scheme, but then they decided it needed to complement be familiar to Java programmers
-      Mocha -> LiveScript -> JavaScript
-      Candidates: Python, Scheme
-
       ECMAScript is just a name for standardized Javascript
+
+      --
+      - All browsers finally on board in 2009 when ES5 was published
+        - Standardization has been getting better since then
 
       ---
 
@@ -172,8 +180,11 @@
       ???
 
       Not going to be a comprehensive language tutorial
+
       Will cover the bare minimum to understand things
+
       I will cover more interesting stuff instead
+
       Exercise in programming language linguistics
 
       Feel free to interject at any time for clarifications
@@ -196,11 +207,18 @@
 
       ???
       Really easy to make objects (one of the good parts)
+
       Objects are basically just key-value pairs
+
+      You might not believe me, but JSON is valid Javascript (there are some edge cases with numbers)
+
+      Most things in Javascript are objects (objects, arrays, functions)
 
       --
 
       ```
+      presentation.presenter; // 'Allen'
+
       // . and [] notation are equivalent for literals without special characters
       presentation.organization = 'LUG@GT';
       presentation['organization'] = 'LUG@GT';
@@ -224,6 +242,9 @@
 
       --
 
+      - Objects get layered on top of one another in a "prototype chain"
+      - If we can't find a key in an object, we look in its prototype
+
       ```
       // Hackish way (not all implementations)
       var proto = { a: 'hello', b: 'world' }
@@ -234,12 +255,32 @@
       o.b; // 'world'
       ```
 
+      ???
+      Objects without classes (from Self)
+
+      If you want to create an object from a template, you can use another object
+
       --
 
       ```
       proto.b = 'everyone'
       o.b; // 'everyone'
       ```
+
+      --
+
+      ```
+      Object.prototype.hello = function() {
+        return 'Hello, world!';
+      };
+
+      ({}).hello(); // 'Hello, world!'
+      ```
+
+      ???
+      Objects inherit from Object.prototype by default
+
+      This is called monkey-patching
 
       ---
       template: proto-title
@@ -249,7 +290,7 @@
         this.name = name;
       }
 
-      // Or add to prototype directly
+      // Or add to the special prototype object directly
       Animal.prototype = {
         corporeal: true,
 
@@ -259,6 +300,10 @@
       };
       ```
 
+      ???
+      By convention, constructors are capitalized, however, there's nothing special about this
+
+      When 'new' is used, 'this' will be bound to a new object
       --
 
       ```
@@ -273,12 +318,8 @@
       ```
 
       ???
-      Objects without classes
-      If you want to create an object from a template, you can use another object
-
-      By convention, constructors are capitalized, however, there's nothing special about this
-      When 'new' is used, 'this' will be bound to a new object
       Call exists on all functions
+
       What if we defined the method in the constructor?
       ---
 
@@ -301,7 +342,9 @@
 
       - Asynchronous, nonblocking, i.e. *single-threaded*
         - JS was made for the browser
-        - Executing Javascript is somewhere in the event loop
+        - JS is event-driven
+            - Executing Javascript is somewhere in the event loop
+            - Events like clicking the mouse/typing trigger Javascript
 
       --
         - If Javascript stops, your app stops too!
@@ -312,8 +355,11 @@
 
       ???
       event driven
+
       setTimeout
+
       Promises
+
       weather API example
 
       ---
@@ -444,7 +490,9 @@
 
       ???
       Semicolons are not required despite C-like syntax
+
       There are a few gotchas to be aware of
+
       Strictly speaking, this makes Javascript whitepsace sensetive
 
       Not widely used because Douglass Crockford said so
