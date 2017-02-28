@@ -246,10 +246,10 @@
       - If we can't find a key in an object, we look in its prototype
 
       ```
-      // Hackish way (not all implementations)
-      var proto = { a: 'hello', b: 'world' }
-      var o = { a: 'hi' }
-      o.__proto__ = proto
+      // Hackish way
+      var proto = { a: 'hello', b: 'world' };
+      var o = { a: 'hi' };
+      Object.setPrototypeOf(o, proto);
 
       o.a; // 'hi'
       o.b; // 'world'
@@ -259,6 +259,8 @@
       Objects without classes (from Self)
 
       If you want to create an object from a template, you can use another object
+
+      Setting the prototype after the fact is very slow
 
       --
 
@@ -270,6 +272,19 @@
       --
 
       ```
+      // To make this more of a hack, we could set __proto__ directly
+      // __proto__ is not a standard!
+      o.__proto__ = proto
+      ```
+
+      ---
+      template: proto-title
+
+      - Objects inherit from Object.prototype
+
+      ```
+      ({}).toString(); // "[object Object]"
+
       Object.prototype.hello = function() {
         return 'Hello, world!';
       };
@@ -278,9 +293,20 @@
       ```
 
       ???
-      Objects inherit from Object.prototype by default
+      Object literals inherit from Object.prototype by default
 
-      This is called monkey-patching
+      Setting properties on Object is called monkey-patching, and is frowned upon
+
+      --
+
+      ```
+      var noProto = Object.create(null);
+      noProto.toString();
+      // TypeError: noProto.toString is not a function
+      ```
+
+      ???
+      You can create an Object with no prototype with Object.create
 
       ---
       template: proto-title
@@ -325,14 +351,17 @@
 
       # Prototypal inheritance
 
-      Typical Dog inherits from Animal relationship
+      - Typical Dog inherits from Animal relationship
 
       ```
       var doggo = new Dog('Gabe');
       doggo.corporeal; // true
       doggo.makeNoise(); // 'Bork!'
 
+      Dog.prototype.isPrototypeOf(doggo); // true
       doggo.__proto__ === Dog.prototype; // true
+
+      Animal.prototype.isPrototypeOf(Dog.prototype);
       doggo.__proto__.__proto__ === Animal.prototype; // true
       ```
 
@@ -345,7 +374,6 @@
         - JS is event-driven
             - Executing Javascript is somewhere in the event loop
             - Events like clicking the mouse/typing trigger Javascript
-
       --
         - If Javascript stops, your app stops too!
             - Everything that can block is made asynchronous
