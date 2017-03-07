@@ -4,9 +4,18 @@
     <meta charset='utf-8'>
     <title>Javascript LUG Presentation</title>
     <style>
+      a {
+        color: #397300;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #4c9900;
+      }
+
       blockquote {
         margin: 0;
-        border-left: 0.5em solid gray;
+        border-left: 0.5em solid #397300;
         padding-left: 1em;
       }
 
@@ -134,7 +143,7 @@
 
       ---
 
-      # History
+      # [History](https://en.wikipedia.org/wiki/JavaScript#History)
 
       - Created for Netscape Navigator in 1995
 
@@ -190,7 +199,7 @@
 
       ---
 
-      # Objects
+      # [Objects](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects)
 
       ```
       var presentation = {
@@ -237,7 +246,7 @@
       ---
       name: proto-title
 
-      # Prototypal inheritance
+      # [Prototypal inheritance](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance)
 
       --
 
@@ -294,9 +303,9 @@
       ```
 
       ???
-      Object literals inherit from Object.prototype by default
-
-      Setting properties on Object is called monkey-patching, and is frowned upon
+      - Default `toString` gives the 'type' of Object
+      - Object literals inherit from Object.prototype by default
+      - Setting properties on Object is called monkey-patching, and is frowned upon
 
       --
 
@@ -349,8 +358,7 @@
 
       What if we defined the method in the constructor?
       ---
-
-      # Prototypal inheritance
+      template: proto-title
 
       - Typical Dog inherits from Animal relationship
 
@@ -410,8 +418,11 @@
       weather API example
 
       ---
+      name: callbacks-title
 
       # Callbacks
+
+      --
 
       ```
       setTimeout(function() {
@@ -421,6 +432,50 @@
 
       ???
       - We're exploiting first-class functions again
+
+      --
+
+      <button id="myBtn">Click me</button>
+
+      ```
+      document.getElementById('myBtn').addEventListener('click', function(event) {
+        alert('Click event at (' + event.clientX + ',' + event.clientY + ')');
+      });
+      ```
+
+      ---
+      template: callbacks-title
+
+      - But how do I do all the stuff I learned about in CS 2200 with pthreads?
+        - Do `n` things in sequence
+        - Do `n` things concurrently and come back when you did all of them
+        - Do `n` things concurrently and come back with the first result, ignoring the rest
+
+      ---
+      template: callbacks-title
+
+      - Doing `n` things in sequence
+
+      ```
+      setTimeout(function() {
+        console.log('hello');
+        setTimeout(function() {
+          console.log('there');
+          setTimeout(function() {
+            console.log('how');
+            setTimeout(function() {
+              console.log('are');
+              setTimeout(function() {
+                console.log('you');
+              }, 600);
+            }, 700);
+          }, 800);
+        }, 900);
+      }, 1000);
+      ```
+
+      ???
+      - This is clearly really annoying
 
       ---
 
@@ -466,6 +521,11 @@
 
       // typeof is not always useful
       typeof undefined, {}, function, [],  NaN, null
+
+      // Failing silently when assignments fail
+      var obj = Object.freeze({ a: 'hi', b: 'there' });
+      obj.a = 'hello';
+      obj.a; // hi
       ```
 
       ---
@@ -557,9 +617,12 @@
 
       ---
 
-      # ES6/ES2015
+      # ES2015/ES6
 
       - Formerly called ES6, then renamed to ES2015
+
+      ???
+      - Renamed because the Ecmascript committee is just going to release whatever new stuff they added to the spec every year
 
       --
       - Changes Javascript as a language *a lot*
@@ -575,7 +638,7 @@
       ---
       name: scope-title
 
-      # Scope (`let` and `const`)
+      # Scope ([`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const))
 
       --
       name: scope-function-scope
@@ -591,7 +654,7 @@
         return x;
       })(); // 12
 
-      x // ReferenceError: x is not defined
+      x; // ReferenceError: x is not defined
       ```
 
       ???
@@ -607,7 +670,7 @@
         return x;
       })(); // undefined
 
-      x // ReferenceError: x is not defined
+      x; // ReferenceError: x is not defined
       ```
 
       ---
@@ -660,7 +723,7 @@
       ---
       name: arrow-title
 
-      # Arrow functions
+      # [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 
       - New syntax for function literals
 
@@ -680,6 +743,10 @@
 
       [1, 2, 3].map(e => e * 2); // [2, 4, 6]
       ```
+
+      --
+
+      - There are also some optimizations like fixing `this` and not setting the `arguments` object, but I don't feel like explaining it
 
       ---
 
@@ -705,6 +772,10 @@
       const slideshow = remark.create({
         highlightLanguage: 'javascript',
         highlightLines: true,
+      });
+
+      document.getElementById('myBtn').addEventListener('click', function(event) {
+        alert('Click event at (' + event.clientX + ',' + event.clientY + ')');
       });
     </script>
   </body>
