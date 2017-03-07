@@ -205,13 +205,10 @@
       ```
 
       ???
-      Really easy to make objects (one of the good parts)
-
-      Objects are basically just key-value pairs
-
-      You might not believe me, but JSON is valid Javascript (there are some edge cases with numbers)
-
-      Most things in Javascript are objects (objects, arrays, functions)
+      - Really easy to make objects (one of the good parts)
+      - Objects are basically just key-value pairs
+      - You might not believe me, but JSON is valid Javascript (there are some edge cases with numbers)
+      - Most things in Javascript are objects (objects, arrays, functions), but not numbers
 
       --
 
@@ -222,10 +219,13 @@
       presentation.organization = 'LUG@GT';
       presentation['organization'] = 'LUG@GT';
 
-      // key can be a variable
-      var key = 'topic';
-      presentation[key]; // 'Javascript'
+      // key can be an arbitrary expression
+      var top = 'top';
+      presentation[top + 'ic']; // 'Javascript'
       ```
+
+      ???
+      Dot vs. array notation
 
       --
 
@@ -255,11 +255,13 @@
       ```
 
       ???
-      Objects without classes (from Self)
+      - Objects without classes
+        - Original Prototypal language was Self
+        - Lua is the other modeern programming language to have this via metatables
+      - If you want to create an object from a template, you can use another object
+      - Setting the prototype after the fact is very slow
 
-      If you want to create an object from a template, you can use another object
-
-      Setting the prototype after the fact is very slow
+      - This is hackish because we're setting the prototype after object creation
 
       --
 
@@ -362,6 +364,23 @@
 
       Animal.prototype.isPrototypeOf(Dog.prototype);
       doggo.__proto__.__proto__ === Animal.prototype; // true
+      ```
+
+      ---
+      template: proto-title
+
+      - Less hackish way to set proto directly
+
+      ```
+      var proto = { a: 'hello', b: 'world' };
+
+      var obj = Object.create(proto, {
+        a: {
+          writable: true,
+          configurable: true,
+          value: 'hi',
+        }
+      });
       ```
 
       ---
