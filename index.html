@@ -57,13 +57,16 @@
 
       Presented by Allen Zheng to the [Linux Users Group at Georgia Tech](https://lugatgt.org)
 
-      2017-03-01
+      2017-03-08
 
       ---
 
       # Meta
 
       - Your presenter: Allen Zheng ([@strburst](https://github.com/strburst/))
+
+      ???
+      I'm your presenter; it's my first time presenting to the LUG
 
       --
       - License: CC-BY-SA
@@ -75,9 +78,6 @@
       - Presentation url: https://strburst.github.io/nodejs-lug-slides/
 
       ???
-
-      I'm your presenter; it's my first time presenting to the LUG
-
       Who here is comfortable with Javascript?
 
       ---
@@ -89,9 +89,9 @@
       name: why-everywhere
 
       - Javascript is everywhere
-      ???
 
-      Why you should care about Javascript
+      ???
+      - Why you should care about Javascript?
 
       ---
       template: why-everywhere
@@ -107,11 +107,9 @@
 
       ???
 
-      Originally going to talk about *just* node.js, then js + node.js, then just js
-
-      Maybe a future talk
-
-      So much optimization work was done in V8 that JS is really fast
+      - But what if I don't care about frontend webdev?
+      - Originally going to talk about *just* node.js, then js + node.js, then just js
+      - Maybe a future talk
 
       ---
       name: why-everywhere-desktop
@@ -119,6 +117,9 @@
         - In desktop apps (!)
 
       .center[[<img src="https://i.imgur.com/7cR3ogn.png" width="80%">](http://electron.atom.io/)]
+
+      ???
+      - But what if I don't care about webdev in general?
 
       ---
       template: why-everywhere
@@ -138,17 +139,16 @@
       - Created for Netscape Navigator in 1995
 
       ???
-      Realized just server-side scripting is not enough
-
-      We need a "glue" language
+      - Realized just server-side scripting is not enough
+      - We need a "glue" language
 
       --
       - First prototype created in 10 days by Brendan Eich
 
       ???
-      Brendan Eich originally hired to implement scheme, but then they decided it needed to complement be familiar to Java programmers
-
-      Mocha -> LiveScript -> JavaScript
+      - Brendan Eich originally hired to implement scheme
+        - Then it was decided it needed to be familiar to Java programmers and complement Java
+      - Named JavaScript because of Java hype at the time
 
       --
       - Javascript standardization suffered a lot during the browser wars
@@ -160,6 +160,9 @@
       --
       - All browsers finally on board in 2009 when ES5 was published
         - Standardization has been getting better since then
+
+      --
+      - Javascript has been changing a lot since ES6/ES2015
 
       ---
 
@@ -179,15 +182,11 @@
 
       ???
 
-      Not going to be a comprehensive language tutorial
-
-      Will cover the bare minimum to understand things
-
-      I will cover more interesting stuff instead
-
-      Exercise in programming language linguistics
-
-      Feel free to interject at any time for clarifications
+      - I don't think I'll be as thorough as some of these crash courses
+        - I will try to sample some interesting language topics instead
+        - Exercise in programming language linguistics
+      - Feel free to interject at any time for clarifications
+        - I'll even take requests for particular language features I should cover
 
       ---
 
@@ -374,6 +373,7 @@
         - JS is event-driven
             - Executing Javascript is somewhere in the event loop
             - Events like clicking the mouse/typing trigger Javascript
+        - (Not 100% true in the browser due to web workers)
       --
         - If Javascript stops, your app stops too!
             - Everything that can block is made asynchronous
@@ -400,17 +400,12 @@
       }, 1000);
       ```
 
+      ???
+      - We're exploiting first-class functions again
+
       ---
 
       # Promises
-
-      ---
-
-      # ES6/ES2015
-
-      ---
-
-      # Transpilation
 
       ---
       name: wat-title
@@ -438,12 +433,20 @@
       ???
 
       ```
+      // When not in strict mode
       undefined = 2
-      'use strict'
+      void 0 // hack
+
+      // Arrays are just ordinary objects
       [] // has no bounds checking
+
       [] + []
+      // Sadly, + is not always commutative
       [] + {}
-      typeof null
+      {} + []
+
+      // typeof is not always useful
+      typeof undefined, {}, function, [],  NaN, null
       ```
 
       ---
@@ -475,6 +478,14 @@
       ])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()
       ```
 
+      ???
+      What's going on?
+      - We are getting special values like undefined
+      - Then we are coercing them to strings and indexing into them to get characters
+      - Then we are concatenating some code together and evaling it
+
+      Please no questions!
+
       ---
       template: jsf-title
       - Try it yourself: http://www.jsfuck.com/
@@ -483,7 +494,7 @@
       ---
       name: fun-title
 
-      # Fun facts
+      # Semicolons
 
       - ["Semicolons in Javascript are optional"](http://mislav.net/2010/05/semicolons/)
         - "automatic semicolon insertion"
@@ -524,6 +535,142 @@
       Strictly speaking, this makes Javascript whitepsace sensetive
 
       Not widely used because Douglass Crockford said so
+
+      ---
+
+      # ES6/ES2015
+
+      - Formerly called ES6, then renamed to ES2015
+
+      --
+      - Changes Javascript as a language *a lot*
+        - But without breaking backwards compatibility!
+
+      ???
+      - Breaking backwards compatibility in Javascript is actually not an option
+        - The result would be a disaster
+
+      --
+      - Adds tons of syntactic sugar
+
+      ---
+      name: scope-title
+
+      # Scope (`let` and `const`)
+
+      --
+      name: scope-function-scope
+      - Javascript is the only language that has *function-scope*
+      --
+
+
+      ```
+      (function() {
+        if (true) {
+          var x = 12;
+        }
+        return x;
+      })(); // 12
+
+      x // ReferenceError: x is not defined
+      ```
+
+      ???
+      - This is an Immediately Invoked Function Expression (IIFE)
+      - All the programming languages you know and love probably have lexical scoping
+
+      --
+      ```
+      (function() {
+        if (false) {
+          var x = 12;
+        }
+        return x;
+      })(); // undefined
+
+      x // ReferenceError: x is not defined
+      ```
+
+      ---
+      template: scope-function-scope
+      - What really happened
+
+      ```
+      (function() {
+        var x;
+        if (false) {
+          x = 12;
+        }
+        return x
+      })(); // undefined
+
+      x // ReferenceError: x is not defined
+      ```
+
+      ???
+      - `var` declaration hoiseted to the top of the function
+
+      ---
+      name: scope-let-const
+      template: scope-function-scope
+      - ES2015 adds lexical scoping with `let` and `const` keywords
+      --
+
+
+      ```
+      (function() {
+        if (true) {
+          let x = 12;
+        }
+        return x; // ReferenceError: x is not defined
+      })();
+      ```
+
+      ---
+      template: scope-let-const
+        - `const` does not allow reassignment
+
+      ```
+      let x = 12;
+      x += 1;
+
+      const y = 12;
+      y += 1; // TypeError: Assignment to constant variable
+      ```
+
+      ---
+      name: arrow-title
+
+      # Arrow functions
+
+      - New syntax for function literals
+
+      ```
+      (param1, param2, ...) => { code }
+      (param1, param2, ...) => value
+      ```
+
+      --
+
+      - Advantage: much shorter
+
+      ```
+      [1, 2, 3].map(function(elem) {
+        return elem * 2;
+      }); // [2, 4, 6]
+
+      [1, 2, 3].map(e => e * 2); // [2, 4, 6]
+      ```
+
+      ---
+
+      # Stuff I didn't talk about
+
+      - Javascript tooling/npm
+      - node.js
+      - Tons of language features/quirks
+      - Tons of ES2015 features
+      - Optimization/optimization killers
 
       ---
 
