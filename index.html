@@ -39,6 +39,7 @@
       .remark-code {
         line-height: 1.2;
         font-size: 0.8em;
+        overflow: hidden !important;
       }
 
       @page {
@@ -414,7 +415,7 @@
         - JS is event-driven
             - Executing Javascript is somewhere in the event loop
             - Events like clicking the mouse/typing trigger Javascript
-        - (Not 100% single-threaded in the browser due to web workers)
+        - (Not 100% single-threaded in the browser due to [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers))
 
       --
         - If Javascript stops, your app stops too!
@@ -489,6 +490,8 @@
       ---
       template: callbacks-title
 
+      - [Callback hell!](http://callbackhell.com/)
+
       .center[![Callback hell](https://i.imgur.com/n03KZ8d.png)]
 
       ???
@@ -501,8 +504,8 @@
       - Doing `n` things in parallel
 
       ```
-      var LOWER = 1000;
-      var UPPER = 7000;
+      var LO = 1000;
+      var HI = 7000;
       var NUM_PARALLEL = 10;
 
       var thingToDoAtTheEnd = function() {
@@ -520,7 +523,7 @@
           if (counter >= NUM_PARALLEL) {
             thingToDoAtTheEnd();
           }
-        }, Math.random() * (UPPER - LOWER) + LOWER);
+        }, Math.random() * (HI - LO) + LO);
       }
       ```
 
@@ -530,8 +533,8 @@
       - Doing `n` things in parallel and ignoring everything after the first thing
 
       ```
-      var LOWER = 1000;
-      var UPPER = 7000;
+      var LO = 1000;
+      var HI = 7000;
       var NUM_PARALLEL = 10;
 
       var thingToDoAtTheEnd = function() {
@@ -542,14 +545,14 @@
 
       for (let i = 0; i &lt; NUM_PARALLEL; i += 1) {
         setTimeout(function() {
+          console.log('Did thing #' + i);
+
           // Remember, preemption still can't hurt us
           if (!finished) {
-            console.log('Did thing #' + i);
-
             finished = true;
             thingToDoAtTheEnd();
           }
-        }, Math.random() * (UPPER - LOWER) + LOWER);
+        }, Math.random() * (HI - LO) + LO);
       }
       ```
 
@@ -707,10 +710,6 @@
       - Adds tons of syntactic sugar
 
       ---
-
-      # Promises
-
-      ---
       name: scope-title
 
       # Scope ([`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const))
@@ -824,13 +823,117 @@
       - There are also some optimizations like fixing `this` and not setting the `arguments` object, but I don't feel like explaining it
 
       ---
+      name: promises-title
+
+      # [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+      --
+
+      - Convert a callback to a promise
+
+      ```
+      function timeout(ms) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(resolve, ms)
+        });
+      }
+      ```
+
+      - Do thing(s) with the result
+
+      ```
+      timeout(1000).then(() => {
+        console.log('hello');
+      }).then(() => {
+        console.log('there');
+      });
+      ```
+
+      ???
+      - Don't worry too much about this, but basically you can convert any callback to a Promise
+        - http://stackoverflow.com/questions/39538473/using-settimeout-on-promise-chain
+      - We can string any number of `then`s together
+
+      ---
+      template: promises-title
+
+      - Doing `n` things in sequence
+
+      ```
+      timeout(1000).then(() => {
+        console.log('hello');
+        return timeout(900);
+      }).then(() => {
+        console.log('there');
+        return timeout(800);
+      }).then(() => {
+        console.log('how');
+        return timeout(700);
+      }).then(() => {
+        console.log('are');
+        return timeout(600);
+      }).then(() => {
+        console.log('you');
+      }).catch(() => {
+        console.log('I didn't know timeouts could fail!');
+      });
+      ```
+
+      ???
+      - Flattens out code and makes it look more synchronous
+
+      ---
+      template: promises-title
+
+      - Doing `n` things in parallel
+
+      ```
+      var LO = 1000;
+      var HI = 7000;
+      var NUM_PARALLEL = 10;
+
+      var promises = [];
+      for (let i = 0; i &lt; NUM_PARALLEL; i += 1) {
+        promises.push(timeout(Math.random() * (HI - LO) + LO).then(() => {
+          console.log('Did thing #' + i);
+        }));
+      }
+
+      Promise.all(promises).then(() => {
+        console.log('We did all the things!');
+      });
+      ```
+
+      ---
+      template: promises-title
+
+      - Doing `n` things in parallel and ignoring everything after the first thing
+
+      ```
+      var LO = 1000;
+      var HI = 7000;
+      var NUM_PARALLEL = 10;
+
+      var promises = [];
+      for (let i = 0; i &lt; NUM_PARALLEL; i += 1) {
+        promises.push(timeout(Math.random() * (HI - LO) + LO).then(() => {
+          console.log('Did thing #' + i);
+        }));
+      }
+
+      Promise.race(promises).then(() => {
+        console.log('We did one of the things!');
+      });
+      ```
+      ---
 
       # Stuff I didn't talk about
 
       - Javascript tooling/npm
+        - E.g. Chrome DevTools
       - node.js
       - Tons of language features/quirks
-      - Tons of ES2015 features
+      - Even more ES2015 (and ES2016) features
       - Optimization/optimization killers
 
       ---
