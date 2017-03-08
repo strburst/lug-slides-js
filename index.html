@@ -87,9 +87,6 @@
       --
       - Presentation url: https://strburst.github.io/nodejs-lug-slides/
 
-      ???
-      - Who here is comfortable with Javascript?
-
       ---
       name: why-title
 
@@ -201,6 +198,7 @@
         - Exercise in programming language linguistics
       - Feel free to interject at any time for clarifications
         - I'll even take requests for particular language features I should cover
+      - Who here is comfortable with Javascript?
 
       ---
 
@@ -212,7 +210,7 @@
         topic: 'Javascript',
         'delete me': 'hello', // keys are arbitrary strings
         hello: function() { // methods are just properties assigned to functions
-          return 'Hello, world!';
+          return 'Hello world, it\'s ' + this.presenter;
         },
         presenter: 'Allen', // trailing commas are allowed
       };
@@ -228,14 +226,14 @@
 
       ```
       presentation.presenter; // 'Allen'
+      presentation.nonexistent; // undefined
 
       // . and [] notation are equivalent for literals without special characters
       presentation.organization = 'LUG@GT';
       presentation['organization'] = 'LUG@GT';
 
       // key can be an arbitrary expression
-      var top = 'top';
-      presentation[top + 'ic']; // 'Javascript'
+      presentation['top' + 'ic']; // 'Javascript'
       ```
 
       ???
@@ -244,7 +242,7 @@
       --
 
       ```
-      del presentation['delete me'];
+      delete presentation['delete me'];
       presentation['delete me']; // undefined
       ```
 
@@ -585,6 +583,11 @@
       undefined = 2
       void 0 // hack
 
+      // Failing silently when assignments fail
+      var obj = Object.freeze({ a: 'hi', b: 'there' });
+      obj.a = 'hello';
+      obj.a; // hi
+
       // Arrays are just ordinary objects
       [] // has no bounds checking
 
@@ -595,11 +598,6 @@
 
       // typeof is not always useful
       typeof undefined, {}, function, [],  NaN, null
-
-      // Failing silently when assignments fail
-      var obj = Object.freeze({ a: 'hi', b: 'there' });
-      obj.a = 'hello';
-      obj.a; // hi
       ```
 
       ---
@@ -815,6 +813,7 @@
         return elem * 2;
       }); // [2, 4, 6]
 
+      // Implicit return!
       [1, 2, 3].map(e => e * 2); // [2, 4, 6]
       ```
 
@@ -875,7 +874,7 @@
       }).then(() => {
         console.log('you');
       }).catch(() => {
-        console.log('I didn't know timeouts could fail!');
+        console.log('I didn\'t know timeouts could fail!');
       });
       ```
 
@@ -930,10 +929,13 @@
       # Stuff I didn't talk about
 
       - Javascript tooling/npm
-        - E.g. Chrome DevTools
+        - Compile-to-JS languages (Coffeescript, Typescript)
+        - Chrome DevTools
+        - Transpilation
       - node.js
       - Tons of language features/quirks
       - Even more ES2015 (and ES2016) features
+        - Template strings, default/rest parameters, spread operator, generators, class syntax
       - Optimization/optimization killers
 
       ---
