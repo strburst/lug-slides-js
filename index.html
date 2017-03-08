@@ -75,7 +75,7 @@
       - Your presenter: Allen Zheng ([@strburst](https://github.com/strburst/))
 
       ???
-      I'm your presenter; it's my first time presenting to the LUG
+      - I'm your presenter; it's my first time presenting to the LUG
 
       --
       - License: CC-BY-SA
@@ -87,7 +87,7 @@
       - Presentation url: https://strburst.github.io/nodejs-lug-slides/
 
       ???
-      Who here is comfortable with Javascript?
+      - Who here is comfortable with Javascript?
 
       ---
       name: why-title
@@ -115,7 +115,6 @@
       [.center.bg-black[<img src="https://nodejs.org/static/images/logo.svg" alt="Node.js logo" width="50%">]](https://nodejs.org)
 
       ???
-
       - But what if I don't care about frontend webdev?
       - Originally going to talk about *just* node.js, then js + node.js, then just js
       - Maybe a future talk
@@ -136,6 +135,8 @@
 
       .center[[![Atom screenshot](https://i.imgur.com/CRbsubr.png)](http://atom.io/)]
 
+      ???
+      - If you still don't care, at least it will help you read blog posts
 
       ---
       template: why-everywhere
@@ -164,7 +165,10 @@
         - E.g. failed ES4 standard
 
       ???
-      ECMAScript is just a name for standardized Javascript
+      - Microsoft had its own implementation, JScript, that was incompatible with Mozilla's
+      - After some time, it became clear that Microsoft didn't care about making a standards-compliant implementation
+      - ECMAScript is just a name for standardized Javascript
+        - ECMA is European Computer Manufacturers Association
 
       --
       - All browsers finally on board in 2009 when ES5 was published
@@ -175,7 +179,7 @@
 
       ---
 
-      # Brendan Eich: "Sorry"
+      # Brendan Eich: Sorry
 
       > I talk a lot about being in a hurry, which was very true; I didn't sleep much. I did the prototype for Javascript in ten days. But really, I'd already read SICP and I'd studied Scheme, and I have no good excuse for some of these things.
 
@@ -273,13 +277,22 @@
       - This is hackish because we're setting the prototype after object creation
 
       --
+      name: proto-eg-shorter
+
+      ```
+      o.hasOwnProperty('a'); // true
+      o.hasOwnProperty('b'); // false
+      ```
+
+      --
 
       ```
       proto.b = 'everyone'
       o.b; // 'everyone'
       ```
 
-      --
+      ---
+      template: proto-eg-shorter
 
       ```
       // To make this more of a hack, we could set __proto__ directly
@@ -304,6 +317,7 @@
 
       ???
       - Default `toString` gives the 'type' of Object
+        - `Object.prototype.toString.call([1, 2, 3])`
       - Object literals inherit from Object.prototype by default
       - Setting properties on Object is called monkey-patching, and is frowned upon
 
@@ -370,7 +384,7 @@
       Dog.prototype.isPrototypeOf(doggo); // true
       doggo.__proto__ === Dog.prototype; // true
 
-      Animal.prototype.isPrototypeOf(Dog.prototype);
+      Animal.prototype.isPrototypeOf(Dog.prototype); // true
       doggo.__proto__.__proto__ === Animal.prototype; // true
       ```
 
@@ -400,7 +414,8 @@
         - JS is event-driven
             - Executing Javascript is somewhere in the event loop
             - Events like clicking the mouse/typing trigger Javascript
-        - (Not 100% true in the browser due to web workers)
+        - (Not 100% single-threaded in the browser due to web workers)
+
       --
         - If Javascript stops, your app stops too!
             - Everything that can block is made asynchronous
@@ -410,12 +425,6 @@
 
       ???
       event driven
-
-      setTimeout
-
-      Promises
-
-      weather API example
 
       ---
       name: callbacks-title
@@ -435,7 +444,7 @@
 
       --
 
-      <button id="myBtn">Click me</button>
+      .center[<button id="myBtn">Click me</button>]
 
       ```
       document.getElementById('myBtn').addEventListener('click', function(event) {
@@ -476,6 +485,15 @@
 
       ???
       - This is clearly really annoying
+
+      ---
+      template: callbacks-title
+
+      .center[![Callback hell](https://i.imgur.com/n03KZ8d.png)]
+
+      ???
+      - If you don't structure your code properly, this is what's going to happen
+      - There are other approaches to structuring asynchronous code like promises, generators, and async/await
 
       ---
       template: callbacks-title
@@ -536,10 +554,6 @@
       ```
 
       ---
-
-      # Promises
-
-      ---
       name: wat-title
 
       # Wat
@@ -563,7 +577,6 @@
       .center[![Javascript: The Good Parts is much thinner than Javascript: The Definitive Guide](https://i.imgur.com/wR3ZxfB.jpg)]
 
       ???
-
       ```
       // When not in strict mode
       undefined = 2
@@ -692,6 +705,10 @@
 
       --
       - Adds tons of syntactic sugar
+
+      ---
+
+      # Promises
 
       ---
       name: scope-title
