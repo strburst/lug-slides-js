@@ -478,6 +478,64 @@
       - This is clearly really annoying
 
       ---
+      template: callbacks-title
+
+      - Doing `n` things in parallel
+
+      ```
+      var LOWER = 1000;
+      var UPPER = 7000;
+      var NUM_PARALLEL = 10;
+
+      var thingToDoAtTheEnd = function() {
+        console.log('We did everything!');
+      }
+
+      var semaphore = 0;
+
+      for (let i = 0; i &lt; NUM_PARALLEL; i += 1) {
+        setTimeout(function() {
+          console.log('Did thing #' + i);
+
+          // Remember, preemption won't hurt us, so no mutexes
+          semaphore += 1;
+          if (counter >= NUM_PARALLEL) {
+            thingToDoAtTheEnd();
+          }
+        }, Math.random() * (UPPER - LOWER) + LOWER);
+      }
+      ```
+
+      ---
+      template: callbacks-title
+
+      - Doing `n` things in parallel and ignoring everything after the first thing
+
+      ```
+      var LOWER = 1000;
+      var UPPER = 7000;
+      var NUM_PARALLEL = 10;
+
+      var thingToDoAtTheEnd = function() {
+        console.log('We did one of the things!');
+      }
+
+      var finished = false;
+
+      for (let i = 0; i &lt; NUM_PARALLEL; i += 1) {
+        setTimeout(function() {
+          // Remember, preemption still can't hurt us
+          if (!finished) {
+            console.log('Did thing #' + i);
+
+            finished = true;
+            thingToDoAtTheEnd();
+          }
+        }, Math.random() * (UPPER - LOWER) + LOWER);
+      }
+      ```
+
+      ---
 
       # Promises
 
