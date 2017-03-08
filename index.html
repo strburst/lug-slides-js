@@ -79,7 +79,8 @@
       - I'm your presenter; it's my first time presenting to the LUG
 
       --
-      - License: CC-BY-SA
+      - Presentation license: CC-BY-SA
+      - Code license: MIT
 
       --
       - Presentation framework: [remark.js](https://remarkjs.com/)
@@ -133,12 +134,12 @@
 
       .center[[![Atom screenshot](https://i.imgur.com/CRbsubr.png)](http://atom.io/)]
 
-      ???
-      - If you still don't care, at least it will help you read blog posts
-
       ---
       template: why-everywhere
       - Extremely popular programming language by most [metrics](http://githut.info/)
+
+      ???
+      - If you still don't care, at least it will help you read blog posts
 
       ---
 
@@ -237,7 +238,7 @@
       ```
 
       ???
-      Dot vs. array notation
+      - Dot vs. array notation
 
       --
 
@@ -329,7 +330,7 @@
       ```
 
       ???
-      You can create an Object with no prototype with Object.create
+      - You can create an Object with no prototype with Object.create
 
       ---
       template: proto-title
@@ -350,9 +351,9 @@
       ```
 
       ???
-      By convention, constructors are capitalized, however, there's nothing special about this
+      - By convention, constructors are capitalized, however, there's nothing special about this
+      - When 'new' is used, 'this' will be bound to a new object
 
-      When 'new' is used, 'this' will be bound to a new object
       --
 
       ```
@@ -367,9 +368,9 @@
       ```
 
       ???
-      Call exists on all functions
+      - Call is just a method on all functions
+      - What if we defined the method in the constructor?
 
-      What if we defined the method in the constructor?
       ---
       template: proto-title
 
@@ -390,7 +391,7 @@
       ---
       template: proto-title
 
-      - Less hackish way to set proto directly
+      - Less hackish way to set proto
 
       ```
       var proto = { a: 'hello', b: 'world' };
@@ -408,7 +409,7 @@
 
       # Concurrency
 
-      - Asynchronous, nonblocking, i.e. *single-threaded*
+      - Asynchronous, nonblocking, *single-threaded*
         - JS was made for the browser
         - JS is event-driven
             - Executing Javascript is somewhere in the event loop
@@ -640,7 +641,7 @@
       ---
       template: jsf-title
       - Try it yourself: http://www.jsfuck.com/
-        - Express `['a', 'b', 'c'].forEach((e) => alert(e))` in 59897 characters!
+        - Express `['a', 'b', 'c'].forEach(console.log)` in 59380 characters!
 
       ---
       name: fun-title
@@ -649,6 +650,9 @@
 
       - ["Semicolons in Javascript are optional"](http://mislav.net/2010/05/semicolons/)
         - "automatic semicolon insertion"
+
+      ???
+      - Semicolons are not required despite C-like syntax
 
       --
 
@@ -666,6 +670,9 @@
       }
       ```
 
+      ???
+      - There are a few gotchas to be aware of
+
       ---
       template: fun-title
 
@@ -679,13 +686,8 @@
       ```
 
       ???
-      Semicolons are not required despite C-like syntax
-
-      There are a few gotchas to be aware of
-
-      Strictly speaking, this makes Javascript whitepsace sensetive
-
-      Not widely used because Douglass Crockford said so
+      - Strictly speaking, this makes Javascript whitepsace sensitive
+      - Not widely used because Douglass Crockford said so
 
       ---
 
@@ -828,7 +830,7 @@
 
       --
 
-      - Convert a callback to a promise
+      - Convert a callback to a promise ([source](http://stackoverflow.com/questions/39538473/using-settimeout-on-promise-chain))
 
       ```
       function timeout(ms) {
@@ -934,7 +936,7 @@
         - Transpilation
       - node.js
       - Tons of language features/quirks
-      - Even more ES2015 (and ES2016) features
+      - Even more [ES2015](https://babeljs.io/learn-es2015/) (and [ES2016](http://www.2ality.com/2016/01/ecmascript-2016.html)) features
         - Template strings, default/rest parameters, spread operator, generators, class syntax
       - Optimization/optimization killers
 
