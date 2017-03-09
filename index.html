@@ -519,7 +519,7 @@
 
           // Remember, preemption won't hurt us, so no mutexes
           semaphore += 1;
-          if (counter >= NUM_PARALLEL) {
+          if (semaphore >= NUM_PARALLEL) {
             thingToDoAtTheEnd();
           }
         }, Math.random() * (HI - LO) + LO);
@@ -606,7 +606,7 @@
       template: wat-title
 
       - [JSFuck](https://github.com/aemkei/jsfuck)
-        - "Write any Javascript with 6 characters: `[]()!+`"
+        - "Write any Javascript with 6 characters: `[]()!+`
       --
 
 
